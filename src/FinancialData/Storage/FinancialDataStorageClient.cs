@@ -5,15 +5,16 @@ using MongoDB.Driver;
 
 public class FinancialDataStorageClient
 {
-    private MongoClient mongoDbCLient;
-    private IMongoDatabase database;
     private IMongoCollection<EndOfDayMongoDbItem> financialDataCollection;
 
     public FinancialDataStorageClient(string connectionString, string databaseName)
     {
-        this.mongoDbCLient = new MongoClient(connectionString: connectionString);
-        this.database = mongoDbCLient.GetDatabase(databaseName);
-        this.financialDataCollection = database.GetCollection<EndOfDayMongoDbItem>("FinancialData");
+        var mongoDbClient = new MongoClient(connectionString);
+
+        financialDataCollection =
+                mongoDbClient
+                    .GetDatabase(databaseName)
+                    .GetCollection<EndOfDayMongoDbItem>("FinancialData");
     }
 
     public async Task InsertEndOfDayItems(IEnumerable<EndOfDayItem> eofItems)

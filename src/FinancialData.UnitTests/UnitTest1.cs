@@ -6,18 +6,18 @@ namespace FinancialData.UnitTests;
 
 public class UnitTest1
 {
-    static string accessKey = "<Put here your Access Key>";
-    static string mongoDbConnectionString = "<Put here your Connection string>";
-    static string databaseName = "<Put here your Database name>";
+    const string accessKey = "<Put here your Access Key>";
+    const string mongoDbConnectionString = "<Put here your Connection string>";
+    const string databaseName = "<Put here your Database name>";
 
-    private static MarksetStackClient marketStackClient = new MarksetStackClient(accessKey);
-    private static FinancialDataStorageClient storageClient = new FinancialDataStorageClient(mongoDbConnectionString, databaseName);
+    MarksetStackClient marketStackClient = new MarksetStackClient(accessKey);
+    FinancialDataStorageClient storageClient = new FinancialDataStorageClient(mongoDbConnectionString, databaseName);
 
-    public async Task Insert(int pageNumber, int offset, int accumulatedCount, int? total)
+    private async Task Insert(int pageNumber, int offset, int accumulatedCount, int? total)
     {
         // In case we run in infinite loop
         // We limit number of recursive query to 500.
-        if (pageNumber == 500 || (total != null && accumulatedCount == total))
+        if (pageNumber == 500 || accumulatedCount == total)
         {
             return;
         }
