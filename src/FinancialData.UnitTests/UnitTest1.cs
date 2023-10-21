@@ -33,12 +33,18 @@ public class UnitTest1
     }
 
     [Fact]
-    public async Task  InsertDataFromMarketStack()
+    public async Task  InsertEndOfDayDataFromMarketStack()
     {
         await Insert(
                 pageNumber: 1,
                 offset:0, 
                 accumulatedCount: 0, 
                 total: null);
+    }
+    
+    [Fact]
+    public async Task  GetEndOfDataFromStorage()
+    {
+        var item = await storageClient.GetEndOfDayItems();
     }
 }
