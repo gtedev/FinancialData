@@ -11,7 +11,7 @@ public class UnitTest1
     static string databaseName = "<Put here your Database name>";
 
     private static MarksetStackClient marketStackClient = new MarksetStackClient(accessKey);
-    private static FinancialDataStorageClient storageClient = new FinancialDataStorageClient(connectionString: mongoDbConnectionString, dbName: databaseName);
+    private static FinancialDataStorageClient storageClient = new FinancialDataStorageClient(mongoDbConnectionString, databaseName);
 
     public async Task Insert(int pageNumber, int offset, int accumulatedCount, int? total)
     {

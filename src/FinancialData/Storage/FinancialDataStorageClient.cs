@@ -9,10 +9,10 @@ public class FinancialDataStorageClient
     private IMongoDatabase database;
     private IMongoCollection<EndOfDayMongoDbItem> financialDataCollection;
 
-    public FinancialDataStorageClient(string connectionString, string dbName)
+    public FinancialDataStorageClient(string connectionString, string databaseName)
     {
         this.mongoDbCLient = new MongoClient(connectionString: connectionString);
-        this.database = mongoDbCLient.GetDatabase(dbName);
+        this.database = mongoDbCLient.GetDatabase(databaseName);
         this.financialDataCollection = database.GetCollection<EndOfDayMongoDbItem>("FinancialData");
     }
 
