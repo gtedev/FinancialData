@@ -7,6 +7,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{765DC7B3-F8A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialData", "src\FinancialData\FinancialData.csproj", "{784B82DA-B7A1-4481-B8EF-C266CCCCEDF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinancialData.UnitTests", "src\FinancialData.UnitTests\FinancialData.UnitTests.csproj", "{624B8792-00D7-4B51-ADA3-F1B16A0645CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,8 +22,13 @@ Global
 		{784B82DA-B7A1-4481-B8EF-C266CCCCEDF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{784B82DA-B7A1-4481-B8EF-C266CCCCEDF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{784B82DA-B7A1-4481-B8EF-C266CCCCEDF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{624B8792-00D7-4B51-ADA3-F1B16A0645CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{624B8792-00D7-4B51-ADA3-F1B16A0645CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{624B8792-00D7-4B51-ADA3-F1B16A0645CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{624B8792-00D7-4B51-ADA3-F1B16A0645CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{784B82DA-B7A1-4481-B8EF-C266CCCCEDF2} = {765DC7B3-F8A9-42A4-8B2A-981636FAE649}
+		{624B8792-00D7-4B51-ADA3-F1B16A0645CF} = {765DC7B3-F8A9-42A4-8B2A-981636FAE649}
 	EndGlobalSection
 EndGlobal

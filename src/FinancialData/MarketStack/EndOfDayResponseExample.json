@@ -1,0 +1,27 @@
+{
+  "pagination": {
+    "limit": 2,
+    "offset": 250,
+    "count": 1,
+    "total": 251
+  },
+  "data": [
+    {
+      "open": 169.15,
+      "high": 173.84,
+      "low": 168.85,
+      "close": 173.19,
+      "volume": 7969300.0,
+      "adj_high": 173.84,
+      "adj_low": 168.85,
+      "adj_close": 173.19,
+      "adj_open": 169.15,
+      "adj_volume": 7971263.0,
+      "split_factor": 1.0,
+      "dividend": 0.0,
+      "symbol": "CVX",
+      "exchange": "XNYS",
+      "date": "2022-10-21T00:00:00+0000"
+    }
+  ]
+}

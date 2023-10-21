@@ -10,8 +10,7 @@ public class GetFinancialDataJob : IJob
         // Note: This method must always return a value 
         // This is especially important for trigger listers watching job execution 
         var httpClient = new HttpClient();
-        var uri = new Uri(
-            "myUri");
+        var uri = new Uri("myUri");
 
         var response = await httpClient.GetStringAsync(uri);
         Console.WriteLine("Response" + response);
