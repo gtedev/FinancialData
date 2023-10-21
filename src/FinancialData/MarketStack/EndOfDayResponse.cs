@@ -1,6 +1,6 @@
 
 namespace FinancialData.MarketStack;
 
-public class EndOfDayResponse: MarketStackResponse<EndOfDayItem>
+public class EndOfDayResponse : MarketStackResponse<EndOfDayItem>
 {
 }

@@ -6,7 +6,7 @@ public class MarksetStackClient
 {
     private int limit = 1000;
     private HttpClient httpClient;
-    private  string endOfDayUrl;
+    private string endOfDayUrl;
 
     public MarksetStackClient(string accessKey)
     {
@@ -18,11 +18,11 @@ public class MarksetStackClient
     {
         return new Uri($"{endOfDayUrl}&offset={offset}&symbols={string.Join(",", symbols)}");
     }
-    
+
     public async Task<EndOfDayResponse> GetEndOfDayDayAsync(int offset, IEnumerable<string> symbols)
     {
         var uri = GetUrlWithOffset(offset, symbols);
-        var responseString = await this.httpClient.GetStringAsync (uri);
+        var responseString = await this.httpClient.GetStringAsync(uri);
         var response = JsonSerializer.Deserialize<EndOfDayResponse>(responseString);
 
         return response;
