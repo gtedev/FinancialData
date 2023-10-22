@@ -10,8 +10,14 @@ public class UnitTest1
     const string mongoDbConnectionString = "<Put here your Connection string>";
     const string databaseName = "<Put here your Database name>";
 
-    MarksetStackClient marketStackClient = new MarksetStackClient(accessKey);
-    FinancialDataStorageClient storageClient = new FinancialDataStorageClient(mongoDbConnectionString, databaseName);
+    MarksetStackClient marketStackClient;
+    FinancialDataStorageClient storageClient;
+
+    public UnitTest1()
+    {
+        marketStackClient = new MarksetStackClient(accessKey, new HttpClient());
+        storageClient = new FinancialDataStorageClient(mongoDbConnectionString, databaseName);
+    }
 
     private async Task Insert(int pageNumber, int offset, int accumulatedCount, int? total)
     {
@@ -22,7 +28,7 @@ public class UnitTest1
             return;
         }
 
-        var response = await marketStackClient.GetEndOfDayDayAsync(offset, new List<string> { "DOW" });
+        var response = await marketStackClient.GetEndOfDayAsync(offset, new List<string> { "DOW" });
         await storageClient.InsertEndOfDayItems(response.data);
 
         await Insert(

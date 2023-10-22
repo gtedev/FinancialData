@@ -8,13 +8,13 @@ public class MarksetStackClient
     private HttpClient httpClient;
     private string endOfDayUrl;
 
-    public MarksetStackClient(string accessKey)
+    public MarksetStackClient(string accessKey, HttpClient httpClient)
     {
         endOfDayUrl = $"http://api.marketstack.com/v1/eod?access_key={accessKey}";
-        httpClient = new HttpClient();
+        this.httpClient = httpClient;
     }
 
-    public async Task<EndOfDayResponse> GetEndOfDayDayAsync(int offset, IEnumerable<string> symbols)
+    public async Task<EndOfDayResponse> GetEndOfDayAsync(int offset, IEnumerable<string> symbols)
     {
         var uri = new Uri($"{endOfDayUrl}&limit={limit}&offset={offset}&symbols={string.Join(",", symbols)}");
 

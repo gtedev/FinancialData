@@ -17,9 +17,9 @@ public class FinancialDataStorageClient
                     .GetCollection<EndOfDayMongoDbItem>("FinancialData");
     }
 
-    public async Task InsertEndOfDayItems(IEnumerable<EndOfDayItem> eofItems)
+    public async Task InsertEndOfDayItems(IEnumerable<EndOfDayItem> eodItems)
     {
-        var items = eofItems.Select(r => new EndOfDayMongoDbItem
+        var items = eodItems.Select(r => new EndOfDayMongoDbItem
         {
             open = r.open,
             high = r.high,
