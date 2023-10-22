@@ -22,7 +22,7 @@ public class UnitTest1
             return;
         }
 
-        var response = await marketStackClient.GetEndOfDayDayAsync(offset, Symbols.US30);
+        var response = await marketStackClient.GetEndOfDayDayAsync(offset, new List<string> { "DOW" });
         await storageClient.InsertEndOfDayItems(response.data);
 
         await Insert(
