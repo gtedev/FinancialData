@@ -6,23 +6,23 @@ namespace FinancialData.UnitTests;
 
 public class UnitTest1
 {
-    const string accessKey = "<Put here your Access Key>";
-    const string mongoDbConnectionString = "<Put here your Connection string>";
-    const string databaseName = "<Put here your Database name>";
+    const string accessKey = "<Put your Access Key here>";
+    const string mongoDbConnectionString = "mongodb://localhost:27017";
+    const string databaseName = "local";
 
-    MarksetStackClient marketStackClient;
+    MarketStackClient marketStackClient;
     FinancialDataStorageClient storageClient;
 
     public UnitTest1()
     {
-        marketStackClient = new MarksetStackClient(accessKey, new HttpClient());
+        marketStackClient = new MarketStackClient(accessKey, new HttpClient());
         storageClient = new FinancialDataStorageClient(mongoDbConnectionString, databaseName);
     }
 
     private async Task Insert(int pageNumber, int offset, int accumulatedCount, int? total)
     {
         // In case we run in infinite loop
-        // We limit number of recursive query to 500.
+        // We limit the number of recursive query to 500.
         if (pageNumber == 500 || accumulatedCount == total)
         {
             return;
@@ -34,7 +34,7 @@ public class UnitTest1
         await Insert(
             pageNumber: pageNumber + 1,
             offset: response.pagination.offset + response.pagination.limit,
-            accumulatedCount: accumulatedCount + response.data.Count,
+            accumulatedCount: accumulatedCount + response.data.Count(),
             total: response.pagination.total);
     }
 

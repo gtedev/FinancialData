@@ -1,11 +1,16 @@
+using System.Dynamic;
+using MongoDB.Bson;
+using MongoDB.Driver.Linq;
+
 namespace FinancialData.Storage;
 
 using MarketStack;
 using MongoDB.Driver;
 
+
 public class FinancialDataStorageClient
 {
-    private IMongoCollection<EndOfDayMongoDbItem> financialDataCollection;
+    private IMongoCollection<BsonDocument> financialDataCollection;
 
     public FinancialDataStorageClient(string connectionString, string databaseName)
     {
@@ -14,29 +19,12 @@ public class FinancialDataStorageClient
         financialDataCollection =
                 mongoDbClient
                     .GetDatabase(databaseName)
-                    .GetCollection<EndOfDayMongoDbItem>("FinancialData");
+                    .GetCollection<BsonDocument>("FinancialData");
     }
 
     public async Task InsertEndOfDayItems(IEnumerable<EndOfDayItem> eodItems)
     {
-        var items = eodItems.Select(r => new EndOfDayMongoDbItem
-        {
-            open = r.open,
-            high = r.high,
-            low = r.low,
-            close = r.close,
-            volume = r.volume,
-            adj_high = r.adj_high,
-            adj_low = r.adj_low,
-            adj_close = r.adj_close,
-            adj_open = r.adj_open,
-            adj_volume = r.adj_volume,
-            split_factor = r.split_factor,
-            dividend = r.dividend,
-            symbol = r.symbol,
-            exchange = r.exchange,
-            date = r.date,
-        });
+        var items = eodItems.Select(r => r.ToBsonDocument());
 
         await financialDataCollection.InsertManyAsync(items);
     }
@@ -49,21 +37,21 @@ public class FinancialDataStorageClient
 
         return items.Select(r => new EndOfDayItem
         {
-            open = r.open,
-            high = r.high,
-            low = r.low,
-            close = r.close,
-            volume = r.volume,
-            adj_high = r.adj_high,
-            adj_low = r.adj_low,
-            adj_close = r.adj_close,
-            adj_open = r.adj_open,
-            adj_volume = r.adj_volume,
-            split_factor = r.split_factor,
-            dividend = r.dividend,
-            symbol = r.symbol,
-            exchange = r.exchange,
-            date = r.date,
+            open = r.Field("open").AsDouble,
+            high = r.Field("high").AsDouble,
+            low = r.Field("low").AsDouble,
+            close = r.Field("close").AsDouble,
+            volume = r.Field("volume").AsDouble,
+            adj_high = r.Field("adj_high").AsDouble,
+            adj_low = r.Field("adj_low").AsDouble,
+            adj_close = r.Field("adj_close").AsDouble,
+            adj_open = r.Field("adj_open").AsDouble,
+            adj_volume = r.Field("adj_volume").AsDouble,
+            split_factor = r.Field("split_factor").AsDouble,
+            dividend = r.Field("dividend").AsDouble,
+            symbol = r.Field("symbol").AsString,
+            exchange = r.Field("exchange").AsString,
+            date = r.Field("date").AsString
         });
     }
 }
