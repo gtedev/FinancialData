@@ -12,5 +12,5 @@ public class Pagination
 public class MarketStackResponse<TData>
 {
     public Pagination pagination { get; set; }
-    public IEnumerable<TData> data { get; set; }
+    public List<TData> data { get; set; }
 }

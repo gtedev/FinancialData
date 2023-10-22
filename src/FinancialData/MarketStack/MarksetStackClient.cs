@@ -2,13 +2,13 @@ namespace FinancialData.MarketStack;
 
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-public class MarketStackClient
+public class MarksetStackClient
 {
     private int limit = 1000;
     private HttpClient httpClient;
     private string endOfDayUrl;
 
-    public MarketStackClient(string accessKey, HttpClient httpClient)
+    public MarksetStackClient(string accessKey, HttpClient httpClient)
     {
         endOfDayUrl = $"http://api.marketstack.com/v1/eod?access_key={accessKey}";
         this.httpClient = httpClient;
