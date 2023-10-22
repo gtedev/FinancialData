@@ -1,6 +1,10 @@
 using FinancialData.Storage;
 using FinancialData.MarketStack;
 using Xunit;
+using MongoDB.Driver;
+using System.Dynamic;
+using MongoDB.Bson;
+using MongoDB.Driver.Linq;
 
 namespace FinancialData.UnitTests;
 
@@ -52,5 +56,63 @@ public class UnitTest1
     public async Task GetEndOfDataFromStorage()
     {
         var item = await storageClient.GetEndOfDayItems();
+    }
+
+    public class Toto
+    {
+        public string A { get; set; }
+        public string B { get; set; }
+        public string C { get; set; }
+        public string D { get; set; }
+    }
+
+    Toto toto(string d)
+    {
+        return new Toto
+        {
+           A = "A", 
+           B = "B", 
+           C = "C", 
+           D = d
+        };
+    }
+    
+
+    [Fact] public async Task InsertWithoutDuplicate()
+    {
+
+        var mongoDbClient = new MongoClient(mongoDbConnectionString);
+
+        var items = new List<Toto>
+        {
+            toto("aaa"),
+            toto("bbb"),
+            toto("ccc"),
+            toto("ddd")
+        };
+        
+        var collection =
+            mongoDbClient
+                .GetDatabase(databaseName)
+                .GetCollection<Toto>("Gerard");
+        
+        var operations = items.Select(x =>
+        {
+            // Define fields that would make field unique
+            var filter = Builders<Toto>.Filter.And(
+                Builders<Toto>.Filter.Eq(a => a.A, x.A),
+                Builders<Toto>.Filter.Eq(a => a.B, x.B),
+                Builders<Toto>.Filter.Eq(a => a.C, x.C)
+            );
+            
+            var upsert = new ReplaceOneModel<Toto>(filter, x)
+            {
+                IsUpsert = true
+            };
+
+            return upsert;
+        });
+        
+        await collection.BulkWriteAsync(operations) ;
     }
 }
